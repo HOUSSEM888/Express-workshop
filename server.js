@@ -3,6 +3,7 @@ const express = require('express');
 
 // Create an instance of an Express app
 const app = express();
+app.use(express.json())
 
 // Define the port number for the server
 const Port = 5000;
@@ -28,7 +29,7 @@ const middle = (req, res, next) => {
 };
 
 // Apply the middleware function to all incoming requests
-app.use(middle);
+// app.use(middle);
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));
@@ -39,7 +40,19 @@ app.get('/', (req, res) => {
     res.render();
 });
 
+
+//user Routes
+app.use('/users', require('./Routes/userRoute')) 
+
 // Start the server and listen on the defined port
 app.listen(Port,(err)=>{
     err ? console.log('err', err) : console.log(`Server is running on port:${Port}`)
 })
+
+
+
+// CRUD
+// C: create  ==> POST
+// R: read    ==> GET
+// U: update  ==> PUT
+// D: delete  ==> DELETE
